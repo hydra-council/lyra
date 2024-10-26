@@ -1,28 +1,16 @@
 from concurrent import futures
-
 import grpc
+
+from database import init_db
 
 from script_loader import ScriptLoader
 import generated.servers.manga.v1.manga_pb2_grpc as mangav1
 import generated.servers.manga.v1.manga_pb2 as mangav1types
+from src.config import addr
 
-port = 55001
-host = '0.0.0.0'
-addr = f"{host}:{port}"
+init_db()
+
 script_manager = ScriptLoader()
-
-
-def load_s():
-    script_manager.load_script('../extensions/manganato.py', 'extensions')
-    try:
-        metadata = script_manager.get_book('https://chapmanganato.to/manga-ri994991/')
-        print(metadata)
-    except Exception as e:
-        print(e)
-
-
-
-load_s()
 
 
 class MangaServicer(mangav1.MangaServiceServicer):
