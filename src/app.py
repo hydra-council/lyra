@@ -2,8 +2,8 @@ from concurrent import futures
 import grpc
 
 from script_loader import ScriptLoader
-import generated.servers.manga.v1.manga_pb2_grpc as mangav1
-import generated.servers.manga.v1.manga_pb2 as mangav1types
+import src.generated.servers.manga.v1.manga_pb2_grpc as mangav1
+import src.generated.servers.manga.v1.manga_pb2 as mangav1types
 from src.config import addr
 from src.database.tables import init_database
 
