@@ -1,0 +1,71 @@
+# TODO rework the profile
+
+name: Release
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  tag-release:
+    name: tag-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+      - name: install plugins
+        run: npm install --no-save @semantic-release/git @semantic-release/changelog -D
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+  build-docker:
+    needs:
+      - tag-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      packages: write # to be able to publish docker images
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'Get tag'
+        id: tagName
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      # TODO docker image build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: build version tagged image
+        run: docker build . -t ghcr.io/${{ github.repository }}:${{ steps.tagName.outputs.tag }}
+
+      - name: push tagged
+        run: docker push ghcr.io/${{ github.repository }}:${{ steps.tagName.outputs.tag }}
+
+      - name: build latest tagged image
+        run: docker build . -t ghcr.io/${{ github.repository }}:latest
+
+      - name: push latest
+        run: docker push ghcr.io/${{ github.repository }}:latest
+
