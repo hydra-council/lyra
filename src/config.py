@@ -85,32 +85,26 @@ def setup_logger(log_dir: str, max_logs: int = 5, max_size: int = 1024 * 1024) -
 
     return logger
 
-@lru_cache()
-def get_env():
-    port = 55001
-    host = '0.0.0.0'
-    addr = f"{host}:{port}"
+port = 55001
+host = '0.0.0.0'
+addr = f"{host}:{port}"
 
-    is_docker = os.getenv("IS_DOCKER")
+is_docker = os.getenv("IS_DOCKER")
 
-    if is_docker is None:
-        base_appdata = '../appdata'
-        print("App is not running in docker")
-    else:
-        base_appdata = '/data/lyra'
-        print("App is running in docker")
+if is_docker is None:
+    base_appdata = '../appdata'
+    print("App is not running in docker")
+else:
+    base_appdata = '/data/lyra'
+    print("App is running in docker")
 
-    database_path = f'{base_appdata}/lyra.db'
-    repo_manifests = f'{base_appdata}/repo_manifests'
-    extension_data = f'{base_appdata}/extension_data'
-    logs = f'{base_appdata}/logs'
+database_path = f'{base_appdata}/lyra.db'
+repo_manifests = f'{base_appdata}/repo_manifests'
+extension_data = f'{os.getcwd()}/extension_data'
+logs = f'{base_appdata}/logs'
 
-    os.makedirs(repo_manifests, exist_ok=True)
-    os.makedirs(extension_data, exist_ok=True)
-    os.makedirs(logs, exist_ok=True)
+os.makedirs(repo_manifests, exist_ok=True)
+os.makedirs(extension_data, exist_ok=True)
+os.makedirs(logs, exist_ok=True)
 
-    return addr, base_appdata, database_path, repo_manifests, extension_data, logs
-
-addr, base_appdata_dir, db_path, repo_manifest_dir, extension_data_dir, log_dir = get_env()
-
-logger = setup_logger(log_dir)
+logger = setup_logger(logs)

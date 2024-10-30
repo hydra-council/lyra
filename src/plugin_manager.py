@@ -1,25 +1,28 @@
-from socket import fromfd
+import platform
 
 import requests
 import json
 import os
-from database import *
 
-manifest_dir = '.'
+import uuid
 
-plugin_path = '../extensions'
+from src.config import extension_data, logger
+from src.database.tables import *
+
+
+def validate_json(required_fields, manifest_data):
+    # Validate all required fields exist and are of correct type
+    for field, field_type in required_fields.items():
+        if field not in manifest_data:
+            print(f"Error: Missing required field '{field}' in manifest")
+            return False
+        if not isinstance(manifest_data[field], field_type):
+            print(f"Error: Field '{field}' has incorrect type")
+            return False
+    return True
 
 
 def download_repo_manifest(repo_url: str) -> bool:
-    """
-    Downloads the repository manifest and validates its contents.
-
-    Args:
-        repo_url: URL to the repository manifest JSON
-
-    Returns:
-        bool: True if download and validation successful, False otherwise
-    """
     try:
         # Download the manifest
         response = requests.get(repo_url)
@@ -32,24 +35,34 @@ def download_repo_manifest(repo_url: str) -> bool:
             'repoUrl': str,
             'jsonRepoUrl': str,
             'version': str,
+            'manifest_version': int,
             'extensionsMetaDataUrls': list
         }
 
-        # Validate all required fields exist and are of correct type
-        for field, field_type in required_fields.items():
-            if field not in manifest_data:
-                print(f"Error: Missing required field '{field}' in manifest")
-                return False
-            if not isinstance(manifest_data[field], field_type):
-                print(f"Error: Field '{field}' has incorrect type")
-                return False
+        validate = validate_json(required_fields, manifest_data)
+        if validate is False:
+            return False
 
-        # Save manifest to file
-        manifest_path = os.path.join(manifest_dir, 'repo_manifest.json')
-        with open(manifest_path, 'w') as f:
-            json.dump(manifest_data, f, indent=2)
+        repo = ExtensionRepo(
+            repoName=manifest_data["repoName"],
+            repoUrl=manifest_data["repoUrl"],
+            jsonRepoUrl=manifest_data["jsonRepoUrl"],
+            version=manifest_data["version"],
+            repo_manifest_version=manifest_data["manifest_version"],
+        )
 
-        print(f"Successfully downloaded and validated manifest to {manifest_path}")
+        res = repo.save().on_conflict(
+            action="DO UPDATE",
+            values=[
+                ExtensionRepo.version,
+                ExtensionRepo.repo_manifest_version,
+                ExtensionRepo.repoName
+            ]
+        ).run_sync()
+
+        for extension in manifest_data["extensionsMetaDataUrls"]:
+            download_extension_manifest(extension, res[0]['id'])
+
         return True
 
     except requests.exceptions.RequestException as e:
@@ -63,64 +76,102 @@ def download_repo_manifest(repo_url: str) -> bool:
         return False
 
 
-def update_repo_manifest() -> None:
-    """
-    Updates the repository manifest by comparing the existing version
-    with the remote version.
-    """
+def download_extension_manifest(extension_url, extension_repo_id):
     try:
-        # Load existing manifest
-        local_manifest_path = os.path.join(manifest_dir, 'repo_manifest.json')
-        if not os.path.exists(local_manifest_path):
-            print("No existing manifest found. Please download first.")
-            return
-
-        with open(local_manifest_path, 'r') as f:
-            local_manifest = json.load(f)
-
-        # Get remote manifest URL
-        remote_url = local_manifest.get('jsonRepoUrl')
-        if not remote_url:
-            print("Error: No jsonRepoUrl found in local manifest")
-            return
-
-        # Download new manifest
-        response = requests.get(remote_url)
+        # Download the manifest
+        response = requests.get(extension_url)
         response.raise_for_status()
-        remote_manifest = response.json()
+        manifest_data = response.json()
 
-        # Compare versions
-        local_version = local_manifest.get('version')
-        remote_version = remote_manifest.get('version')
+        # Required fields in the manifest
+        required_fields = {
+            "name": str,
+            "manifest_version": int,
+            "version": str,
+            "media_type": str,
+            "repoUrl": str,
+            "scriptUrl": str,
+            "metaDataUrl": str
+        }
 
-        if not local_version or not remote_version:
-            print("Error: Version information missing in manifest")
-            return
+        validate = validate_json(required_fields, manifest_data)
+        if validate is False:
+            return False
 
-        if remote_version > local_version:
-            print(f"New version available: {remote_version} (current: {local_version})")
-            # Save new manifest
-            with open(local_manifest_path, 'w') as f:
-                json.dump(remote_manifest, f, indent=2)
-            print("Manifest updated successfully")
-        else:
-            print(f"Already at latest version ({local_version})")
+        repo = Extension(
+            display_name=manifest_data["name"],
+            manifest_version=manifest_data["manifest_version"],
+            extension_version=manifest_data["version"],
+            media_type=manifest_data["media_type"],
+            repo_url=manifest_data["repoUrl"],
+            script_url=manifest_data["scriptUrl"],
+            meta_data_url=manifest_data["metaDataUrl"],
+            script_file_url='',  # indicate not installed status
+            extension_repo=extension_repo_id
+        )
+
+        repo.save().on_conflict(
+            action="DO UPDATE",
+            values=[
+                Extension.extension_version,
+                Extension.manifest_version,
+                Extension.display_name,
+            ]).run_sync()
+
+        print(f"Successfully downloaded and validated manifest")
+        return True
 
     except requests.exceptions.RequestException as e:
-        print(f"Error downloading remote manifest: {e}")
+        print(f"Error downloading manifest: {e}")
+        return False
     except json.JSONDecodeError as e:
         print(f"Error parsing manifest JSON: {e}")
+        return False
     except Exception as e:
         print(f"Unexpected error: {e}")
+        return False
 
 
-def download_extension_manifest():
-    pass
+def install_extension(ext_id):
+    res = Extension.select(Extension.script_url).where(Extension.id == ext_id).run_sync()
+
+    if len(res):
+        url = res[0]['script_url']
+        resp = requests.get(url)
+        resp.raise_for_status()
+
+        if resp.headers['Content-Type'] != 'text/plain; charset=utf-8':
+            raise Exception(f'Content type must be text/plain; charset=utf-8 response content type: {resp.headers['Content-Type']}')
+
+
+        ext_uuid = str(uuid.uuid4())
+
+        # Create directory if it doesn't exist
+        directory = os.path.join(extension_data, ext_uuid)
+        if directory:
+            os.makedirs(directory, exist_ok=True)
+
+        filepath = os.path.join(directory, f'{url.split('/')[-1]}')
+
+        # Write content to file
+        with open(filepath, 'wb') as f:
+            f.write(resp.content)
+
+        if platform.system() == 'Windows':
+            logger.warning('OS is detected as windows skipping chown and chmod')
+            return True
+
+        # Change ownership and permissions
+        os.chown(filepath, 1000, 1000)
+        os.chmod(filepath, 660)
+        return True
+    else:
+        raise Exception(f"Could not find extension with id: {ext_id}")
 
 
 def update_extension_manifest():
     pass
 
-
-# download_plugin('https://github.com/hydra-council/manga-extensions')
-update_plugin('https://github.com/hydra-council/manga-extensions')
+# install_extension(1)
+# download_repo_manifest('https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/repo_manifest.json')
+# update_plugin('https://github.com/hydra-council/manga-extensions')
