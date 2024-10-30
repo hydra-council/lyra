@@ -4,7 +4,7 @@ import sys
 
 
 def verify_imports(script_path):
-    allowed_modules = {'requests', 'json', 'bs4.BeautifulSoup'}
+    allowed_modules = {'requests', 'json', 'bs4.BeautifulSoup', 'enum.Enum'}
 
     with open(script_path, 'r') as file:
         tree = ast.parse(file.read())

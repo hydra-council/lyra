@@ -6,8 +6,11 @@ import os
 
 import uuid
 
+from jinja2 import ModuleLoader
+
 from src.config import extension_data, logger
 from src.database.tables import *
+from src.script_loader import ScriptLoader
 
 
 def validate_json(required_fields, manifest_data):
@@ -133,16 +136,20 @@ def download_extension_manifest(extension_url, extension_repo_id):
 
 
 def install_extension(ext_id):
-    res = Extension.select(Extension.script_url).where(Extension.id == ext_id).run_sync()
+    res = Extension.select(Extension.script_url, Extension.script_file_url).where(Extension.id == ext_id).run_sync()
 
     if len(res):
+        file_url = res[0]['script_file_url']
+        if len(file_url) != 0:
+            raise Exception(f'Script file already downloaded at {file_url}')
+
         url = res[0]['script_url']
         resp = requests.get(url)
         resp.raise_for_status()
 
         if resp.headers['Content-Type'] != 'text/plain; charset=utf-8':
-            raise Exception(f'Content type must be text/plain; charset=utf-8 response content type: {resp.headers['Content-Type']}')
-
+            raise Exception(
+                f'Content type must be text/plain; charset=utf-8 response content type: {resp.headers['Content-Type']}')
 
         ext_uuid = str(uuid.uuid4())
 
@@ -157,6 +164,8 @@ def install_extension(ext_id):
         with open(filepath, 'wb') as f:
             f.write(resp.content)
 
+        Extension.update({Extension.script_file_url: filepath}).where(Extension.id == ext_id).run_sync()
+
         if platform.system() == 'Windows':
             logger.warning('OS is detected as windows skipping chown and chmod')
             return True
@@ -169,9 +178,16 @@ def install_extension(ext_id):
         raise Exception(f"Could not find extension with id: {ext_id}")
 
 
-def update_extension_manifest():
+def update_extension():
     pass
 
+
+def get_module_path(ext_id):
+    file_path = (Extension.select(Extension.script_file_url)
+                 .where(Extension.id == ext_id).run_sync())[0]['script_file_url']
+    return f'{os.path.basename(os.path.dirname(file_path))}.{os.path.basename(file_path)}', file_path
+
+# get_module_path(1)
 # install_extension(1)
 # download_repo_manifest('https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/repo_manifest.json')
 # update_plugin('https://github.com/hydra-council/manga-extensions')
