@@ -34,16 +34,6 @@ class MangaServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.InstallPlugin = channel.unary_unary(
-                '/manga.v1.MangaService/InstallPlugin',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.FromString,
-                _registered_method=True)
-        self.DeletePlugin = channel.unary_unary(
-                '/manga.v1.MangaService/DeletePlugin',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.FromString,
-                _registered_method=True)
         self.SearchPlugin = channel.unary_unary(
                 '/manga.v1.MangaService/SearchPlugin',
                 request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginRequest.SerializeToString,
@@ -54,24 +44,50 @@ class MangaServiceStub(object):
                 request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.SerializeToString,
                 response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.FromString,
                 _registered_method=True)
+        self.InstallRepo = channel.unary_unary(
+                '/manga.v1.MangaService/InstallRepo',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoResponse.FromString,
+                _registered_method=True)
+        self.UnInstallRepo = channel.unary_unary(
+                '/manga.v1.MangaService/UnInstallRepo',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.FromString,
+                _registered_method=True)
+        self.UpdateRepo = channel.unary_unary(
+                '/manga.v1.MangaService/UpdateRepo',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.FromString,
+                _registered_method=True)
+        self.ListRepos = channel.unary_unary(
+                '/manga.v1.MangaService/ListRepos',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoResponse.FromString,
+                _registered_method=True)
+        self.InstallExtension = channel.unary_unary(
+                '/manga.v1.MangaService/InstallExtension',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+                _registered_method=True)
+        self.UnInstallExtension = channel.unary_unary(
+                '/manga.v1.MangaService/UnInstallExtension',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+                _registered_method=True)
+        self.UpdateExtension = channel.unary_unary(
+                '/manga.v1.MangaService/UpdateExtension',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+                _registered_method=True)
+        self.ListExtensions = channel.unary_unary(
+                '/manga.v1.MangaService/ListExtensions',
+                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionRequest.SerializeToString,
+                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionResponse.FromString,
+                _registered_method=True)
 
 
 class MangaServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
-
-    def InstallPlugin(self, request, context):
-        """install a new plugin
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DeletePlugin(self, request, context):
-        """delete plugin
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def SearchPlugin(self, request, context):
         """search plugin
@@ -87,19 +103,60 @@ class MangaServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def InstallRepo(self, request, context):
+        """//////////////////////////////////////////////////////////////////////////////////////
+        repo management
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UnInstallRepo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateRepo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListRepos(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InstallExtension(self, request, context):
+        """extension management
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UnInstallExtension(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateExtension(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListExtensions(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MangaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'InstallPlugin': grpc.unary_unary_rpc_method_handler(
-                    servicer.InstallPlugin,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.SerializeToString,
-            ),
-            'DeletePlugin': grpc.unary_unary_rpc_method_handler(
-                    servicer.DeletePlugin,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.SerializeToString,
-            ),
             'SearchPlugin': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchPlugin,
                     request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginRequest.FromString,
@@ -109,6 +166,46 @@ def add_MangaServiceServicer_to_server(servicer, server):
                     servicer.RefreshManga,
                     request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.FromString,
                     response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.SerializeToString,
+            ),
+            'InstallRepo': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstallRepo,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoResponse.SerializeToString,
+            ),
+            'UnInstallRepo': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnInstallRepo,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.SerializeToString,
+            ),
+            'UpdateRepo': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateRepo,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.SerializeToString,
+            ),
+            'ListRepos': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListRepos,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoResponse.SerializeToString,
+            ),
+            'InstallExtension': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstallExtension,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.SerializeToString,
+            ),
+            'UnInstallExtension': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnInstallExtension,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.SerializeToString,
+            ),
+            'UpdateExtension': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateExtension,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.SerializeToString,
+            ),
+            'ListExtensions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListExtensions,
+                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionRequest.FromString,
+                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -120,60 +217,6 @@ def add_MangaServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class MangaService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def InstallPlugin(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/manga.v1.MangaService/InstallPlugin',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def DeletePlugin(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/manga.v1.MangaService/DeletePlugin',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def SearchPlugin(request,
@@ -219,6 +262,222 @@ class MangaService(object):
             '/manga.v1.MangaService/RefreshManga',
             generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.SerializeToString,
             generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InstallRepo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/InstallRepo',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.InstallRepoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UnInstallRepo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/UnInstallRepo',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateRepo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/UpdateRepo',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RepoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListRepos(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/ListRepos',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListRepoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InstallExtension(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/InstallExtension',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UnInstallExtension(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/UnInstallExtension',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateExtension(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/UpdateExtension',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ExtensionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListExtensions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/manga.v1.MangaService/ListExtensions',
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionRequest.SerializeToString,
+            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.ListExtensionResponse.FromString,
             options,
             channel_credentials,
             insecure,

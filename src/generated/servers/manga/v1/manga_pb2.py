@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&generated/servers/manga/v1/manga.proto\x12\x08manga.v1\"\x12\n\x10NewPluginRequest\"\x13\n\x11NewPluginResponse\"\x15\n\x13\x44\x65letePluginRequest\"\x16\n\x14\x44\x65letePluginResponse\"<\n\x13SearchPluginRequest\x12\x13\n\x0bsearchQuery\x18\x01 \x01(\t\x12\x10\n\x08pluginID\x18\x02 \x01(\t\"$\n\x14SearchPluginResponse\x12\x0c\n\x04pong\x18\x01 \x01(\t\"\x16\n\x14RefreshMangaResponse\"\x15\n\x13RefreshMangaRequest\"_\n\rMangaMetaData\x12\r\n\x05title\x18\x01 \x01(\t\x12\x15\n\ralternateTile\x18\x02 \x01(\t\x12(\n\x08\x63hapters\x18\x04 \x03(\x0b\x32\x16.manga.v1.MangaChapter\"|\n\x0cMangaChapter\x12\x15\n\rchapterNumber\x18\x01 \x01(\t\x12\x13\n\x0b\x63hapterName\x18\x02 \x01(\t\x12\x1c\n\x14releaseDateInISO6801\x18\x03 \x01(\t\x12\"\n\x05pages\x18\x04 \x03(\x0b\x32\x13.manga.v1.MangaPage\"&\n\tMangaPage\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t2\xcd\x02\n\x0cMangaService\x12J\n\rInstallPlugin\x12\x1a.manga.v1.NewPluginRequest\x1a\x1b.manga.v1.NewPluginResponse\"\x00\x12O\n\x0c\x44\x65letePlugin\x12\x1d.manga.v1.DeletePluginRequest\x1a\x1e.manga.v1.DeletePluginResponse\"\x00\x12O\n\x0cSearchPlugin\x12\x1d.manga.v1.SearchPluginRequest\x1a\x1e.manga.v1.SearchPluginResponse\"\x00\x12O\n\x0cRefreshManga\x12\x1d.manga.v1.RefreshMangaRequest\x1a\x1e.manga.v1.RefreshMangaResponse\"\x00\x42\"Z hydra/generated/servers/manga/v1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&generated/servers/manga/v1/manga.proto\x12\x08manga.v1\")\n\x12InstallRepoRequest\x12\x13\n\x0brepoJsonUrl\x18\x01 \x01(\t\"%\n\x13InstallRepoResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x19\n\x0bRepoRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\x1e\n\x0cRepoResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x11\n\x0fListRepoRequest\":\n\x10ListRepoResponse\x12&\n\x05repos\x18\x01 \x03(\x0b\x32\x17.manga.v1.ExtensionRepo\"r\n\rExtensionRepo\x12\x10\n\x08repoName\x18\x01 \x01(\t\x12\x0f\n\x07repoUrl\x18\x02 \x01(\t\x12\x13\n\x0bjsonRepoUrl\x18\x03 \x01(\t\x12\x0f\n\x07version\x18\x04 \x01(\t\x12\x18\n\x10manifest_version\x18\x05 \x01(\t\"\x1e\n\x10\x45xtensionRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"#\n\x11\x45xtensionResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x16\n\x14ListExtensionRequest\"@\n\x15ListExtensionResponse\x12\'\n\nextensions\x18\x01 \x03(\x0b\x32\x13.manga.v1.Extension\"\x9a\x01\n\tExtension\x12\x15\n\rextensionName\x18\x01 \x01(\t\x12\x18\n\x10manifest_version\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x12\n\nmedia_type\x18\x04 \x01(\t\x12\x0f\n\x07repoUrl\x18\x05 \x01(\t\x12\x11\n\tscriptUrl\x18\x06 \x01(\t\x12\x13\n\x0bmetaDataUrl\x18\x07 \x01(\t\"<\n\x13SearchPluginRequest\x12\x13\n\x0bsearchQuery\x18\x01 \x01(\t\x12\x10\n\x08pluginID\x18\x02 \x01(\t\"$\n\x14SearchPluginResponse\x12\x0c\n\x04pong\x18\x01 \x01(\t\"\x16\n\x14RefreshMangaResponse\"\x15\n\x13RefreshMangaRequest\"_\n\rMangaMetaData\x12\r\n\x05title\x18\x01 \x01(\t\x12\x15\n\ralternateTile\x18\x02 \x01(\t\x12(\n\x08\x63hapters\x18\x04 \x03(\x0b\x32\x16.manga.v1.MangaChapter\"|\n\x0cMangaChapter\x12\x15\n\rchapterNumber\x18\x01 \x01(\t\x12\x13\n\x0b\x63hapterName\x18\x02 \x01(\t\x12\x1c\n\x14releaseDateInISO6801\x18\x03 \x01(\t\x12\"\n\x05pages\x18\x04 \x03(\x0b\x32\x13.manga.v1.MangaPage\"&\n\tMangaPage\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t2\x88\x06\n\x0cMangaService\x12O\n\x0cSearchPlugin\x12\x1d.manga.v1.SearchPluginRequest\x1a\x1e.manga.v1.SearchPluginResponse\"\x00\x12O\n\x0cRefreshManga\x12\x1d.manga.v1.RefreshMangaRequest\x1a\x1e.manga.v1.RefreshMangaResponse\"\x00\x12L\n\x0bInstallRepo\x12\x1c.manga.v1.InstallRepoRequest\x1a\x1d.manga.v1.InstallRepoResponse\"\x00\x12@\n\rUnInstallRepo\x12\x15.manga.v1.RepoRequest\x1a\x16.manga.v1.RepoResponse\"\x00\x12=\n\nUpdateRepo\x12\x15.manga.v1.RepoRequest\x1a\x16.manga.v1.RepoResponse\"\x00\x12\x44\n\tListRepos\x12\x19.manga.v1.ListRepoRequest\x1a\x1a.manga.v1.ListRepoResponse\"\x00\x12M\n\x10InstallExtension\x12\x1a.manga.v1.ExtensionRequest\x1a\x1b.manga.v1.ExtensionResponse\"\x00\x12O\n\x12UnInstallExtension\x12\x1a.manga.v1.ExtensionRequest\x1a\x1b.manga.v1.ExtensionResponse\"\x00\x12L\n\x0fUpdateExtension\x12\x1a.manga.v1.ExtensionRequest\x1a\x1b.manga.v1.ExtensionResponse\"\x00\x12S\n\x0eListExtensions\x12\x1e.manga.v1.ListExtensionRequest\x1a\x1f.manga.v1.ListExtensionResponse\"\x00\x42\"Z hydra/generated/servers/manga/v1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,28 +32,44 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'generated.servers.manga.v1.
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z hydra/generated/servers/manga/v1'
-  _globals['_NEWPLUGINREQUEST']._serialized_start=52
-  _globals['_NEWPLUGINREQUEST']._serialized_end=70
-  _globals['_NEWPLUGINRESPONSE']._serialized_start=72
-  _globals['_NEWPLUGINRESPONSE']._serialized_end=91
-  _globals['_DELETEPLUGINREQUEST']._serialized_start=93
-  _globals['_DELETEPLUGINREQUEST']._serialized_end=114
-  _globals['_DELETEPLUGINRESPONSE']._serialized_start=116
-  _globals['_DELETEPLUGINRESPONSE']._serialized_end=138
-  _globals['_SEARCHPLUGINREQUEST']._serialized_start=140
-  _globals['_SEARCHPLUGINREQUEST']._serialized_end=200
-  _globals['_SEARCHPLUGINRESPONSE']._serialized_start=202
-  _globals['_SEARCHPLUGINRESPONSE']._serialized_end=238
-  _globals['_REFRESHMANGARESPONSE']._serialized_start=240
-  _globals['_REFRESHMANGARESPONSE']._serialized_end=262
-  _globals['_REFRESHMANGAREQUEST']._serialized_start=264
-  _globals['_REFRESHMANGAREQUEST']._serialized_end=285
-  _globals['_MANGAMETADATA']._serialized_start=287
-  _globals['_MANGAMETADATA']._serialized_end=382
-  _globals['_MANGACHAPTER']._serialized_start=384
-  _globals['_MANGACHAPTER']._serialized_end=508
-  _globals['_MANGAPAGE']._serialized_start=510
-  _globals['_MANGAPAGE']._serialized_end=548
-  _globals['_MANGASERVICE']._serialized_start=551
-  _globals['_MANGASERVICE']._serialized_end=884
+  _globals['_INSTALLREPOREQUEST']._serialized_start=52
+  _globals['_INSTALLREPOREQUEST']._serialized_end=93
+  _globals['_INSTALLREPORESPONSE']._serialized_start=95
+  _globals['_INSTALLREPORESPONSE']._serialized_end=132
+  _globals['_REPOREQUEST']._serialized_start=134
+  _globals['_REPOREQUEST']._serialized_end=159
+  _globals['_REPORESPONSE']._serialized_start=161
+  _globals['_REPORESPONSE']._serialized_end=191
+  _globals['_LISTREPOREQUEST']._serialized_start=193
+  _globals['_LISTREPOREQUEST']._serialized_end=210
+  _globals['_LISTREPORESPONSE']._serialized_start=212
+  _globals['_LISTREPORESPONSE']._serialized_end=270
+  _globals['_EXTENSIONREPO']._serialized_start=272
+  _globals['_EXTENSIONREPO']._serialized_end=386
+  _globals['_EXTENSIONREQUEST']._serialized_start=388
+  _globals['_EXTENSIONREQUEST']._serialized_end=418
+  _globals['_EXTENSIONRESPONSE']._serialized_start=420
+  _globals['_EXTENSIONRESPONSE']._serialized_end=455
+  _globals['_LISTEXTENSIONREQUEST']._serialized_start=457
+  _globals['_LISTEXTENSIONREQUEST']._serialized_end=479
+  _globals['_LISTEXTENSIONRESPONSE']._serialized_start=481
+  _globals['_LISTEXTENSIONRESPONSE']._serialized_end=545
+  _globals['_EXTENSION']._serialized_start=548
+  _globals['_EXTENSION']._serialized_end=702
+  _globals['_SEARCHPLUGINREQUEST']._serialized_start=704
+  _globals['_SEARCHPLUGINREQUEST']._serialized_end=764
+  _globals['_SEARCHPLUGINRESPONSE']._serialized_start=766
+  _globals['_SEARCHPLUGINRESPONSE']._serialized_end=802
+  _globals['_REFRESHMANGARESPONSE']._serialized_start=804
+  _globals['_REFRESHMANGARESPONSE']._serialized_end=826
+  _globals['_REFRESHMANGAREQUEST']._serialized_start=828
+  _globals['_REFRESHMANGAREQUEST']._serialized_end=849
+  _globals['_MANGAMETADATA']._serialized_start=851
+  _globals['_MANGAMETADATA']._serialized_end=946
+  _globals['_MANGACHAPTER']._serialized_start=948
+  _globals['_MANGACHAPTER']._serialized_end=1072
+  _globals['_MANGAPAGE']._serialized_start=1074
+  _globals['_MANGAPAGE']._serialized_end=1112
+  _globals['_MANGASERVICE']._serialized_start=1115
+  _globals['_MANGASERVICE']._serialized_end=1891
 # @@protoc_insertion_point(module_scope)
