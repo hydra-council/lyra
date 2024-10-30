@@ -135,12 +135,13 @@ def download_extension_manifest(extension_url, extension_repo_id):
         return False
 
 
-def install_extension(ext_id):
+# set update to true if rewriting file
+def install_extension(ext_id, update=False):
     res = Extension.select(Extension.script_url, Extension.script_file_url).where(Extension.id == ext_id).run_sync()
 
     if len(res):
         file_url = res[0]['script_file_url']
-        if len(file_url) != 0:
+        if len(file_url) != 0 and not update:
             raise Exception(f'Script file already downloaded at {file_url}')
 
         url = res[0]['script_url']
