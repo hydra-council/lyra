@@ -1,5 +1,6 @@
 import ast
 import importlib
+import os
 import sys
 
 
@@ -25,20 +26,24 @@ def verify_imports(script_path):
         raise Exception(f'You are not allowed to import {result}')
 
 
+def get_module_path(file_path):
+    return f'{os.path.basename(os.path.dirname(file_path))}.{os.path.basename(file_path)}', file_path
+
+
 class ScriptLoader:
     __module = None
 
     def is_loaded(self) -> bool:
         return self.__module is not None
 
-    def load_script(self, path: str, module_name: str | None = None) -> tuple[bool, str]:
+    def load_script(self, path: str, module_name: str) -> tuple[bool, str]:
         try:
             verify_imports(path)
             spec = importlib.util.spec_from_file_location(module_name, path)
             self.__module = importlib.util.module_from_spec(spec)
             sys.modules[module_name] = self.__module
             spec.loader.exec_module(self.__module)
-            return True, ''
+            return True, 'Success'
 
         except Exception as e:
             print(f'Error: {e}')

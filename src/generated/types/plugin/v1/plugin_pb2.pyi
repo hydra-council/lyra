@@ -40,18 +40,20 @@ class ListRepoResponse(_message.Message):
     def __init__(self, repos: _Optional[_Iterable[_Union[ExtensionRepo, _Mapping]]] = ...) -> None: ...
 
 class ExtensionRepo(_message.Message):
-    __slots__ = ("repoName", "repoUrl", "jsonRepoUrl", "version", "manifest_version")
+    __slots__ = ("id", "repoName", "repoUrl", "jsonRepoUrl", "version", "manifest_version")
+    ID_FIELD_NUMBER: _ClassVar[int]
     REPONAME_FIELD_NUMBER: _ClassVar[int]
     REPOURL_FIELD_NUMBER: _ClassVar[int]
     JSONREPOURL_FIELD_NUMBER: _ClassVar[int]
     VERSION_FIELD_NUMBER: _ClassVar[int]
     MANIFEST_VERSION_FIELD_NUMBER: _ClassVar[int]
+    id: str
     repoName: str
     repoUrl: str
     jsonRepoUrl: str
     version: str
-    manifest_version: str
-    def __init__(self, repoName: _Optional[str] = ..., repoUrl: _Optional[str] = ..., jsonRepoUrl: _Optional[str] = ..., version: _Optional[str] = ..., manifest_version: _Optional[str] = ...) -> None: ...
+    manifest_version: int
+    def __init__(self, id: _Optional[str] = ..., repoName: _Optional[str] = ..., repoUrl: _Optional[str] = ..., jsonRepoUrl: _Optional[str] = ..., version: _Optional[str] = ..., manifest_version: _Optional[int] = ...) -> None: ...
 
 class ExtensionRequest(_message.Message):
     __slots__ = ("id",)
@@ -76,7 +78,8 @@ class ListExtensionResponse(_message.Message):
     def __init__(self, extensions: _Optional[_Iterable[_Union[Extension, _Mapping]]] = ...) -> None: ...
 
 class Extension(_message.Message):
-    __slots__ = ("extensionName", "manifest_version", "version", "media_type", "repoUrl", "scriptUrl", "metaDataUrl")
+    __slots__ = ("id", "extensionName", "manifest_version", "version", "media_type", "repoUrl", "scriptUrl", "metaDataUrl")
+    ID_FIELD_NUMBER: _ClassVar[int]
     EXTENSIONNAME_FIELD_NUMBER: _ClassVar[int]
     MANIFEST_VERSION_FIELD_NUMBER: _ClassVar[int]
     VERSION_FIELD_NUMBER: _ClassVar[int]
@@ -84,63 +87,12 @@ class Extension(_message.Message):
     REPOURL_FIELD_NUMBER: _ClassVar[int]
     SCRIPTURL_FIELD_NUMBER: _ClassVar[int]
     METADATAURL_FIELD_NUMBER: _ClassVar[int]
+    id: int
     extensionName: str
-    manifest_version: str
+    manifest_version: int
     version: str
     media_type: str
     repoUrl: str
     scriptUrl: str
     metaDataUrl: str
-    def __init__(self, extensionName: _Optional[str] = ..., manifest_version: _Optional[str] = ..., version: _Optional[str] = ..., media_type: _Optional[str] = ..., repoUrl: _Optional[str] = ..., scriptUrl: _Optional[str] = ..., metaDataUrl: _Optional[str] = ...) -> None: ...
-
-class SearchPluginRequest(_message.Message):
-    __slots__ = ("searchQuery", "pluginID")
-    SEARCHQUERY_FIELD_NUMBER: _ClassVar[int]
-    PLUGINID_FIELD_NUMBER: _ClassVar[int]
-    searchQuery: str
-    pluginID: str
-    def __init__(self, searchQuery: _Optional[str] = ..., pluginID: _Optional[str] = ...) -> None: ...
-
-class SearchPluginResponse(_message.Message):
-    __slots__ = ("pong",)
-    PONG_FIELD_NUMBER: _ClassVar[int]
-    pong: str
-    def __init__(self, pong: _Optional[str] = ...) -> None: ...
-
-class RefreshMangaResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
-class RefreshMangaRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
-class MangaMetaData(_message.Message):
-    __slots__ = ("title", "alternateTile", "chapters")
-    TITLE_FIELD_NUMBER: _ClassVar[int]
-    ALTERNATETILE_FIELD_NUMBER: _ClassVar[int]
-    CHAPTERS_FIELD_NUMBER: _ClassVar[int]
-    title: str
-    alternateTile: str
-    chapters: _containers.RepeatedCompositeFieldContainer[MangaChapter]
-    def __init__(self, title: _Optional[str] = ..., alternateTile: _Optional[str] = ..., chapters: _Optional[_Iterable[_Union[MangaChapter, _Mapping]]] = ...) -> None: ...
-
-class MangaChapter(_message.Message):
-    __slots__ = ("chapterNumber", "chapterName", "releaseDateInISO6801", "pages")
-    CHAPTERNUMBER_FIELD_NUMBER: _ClassVar[int]
-    CHAPTERNAME_FIELD_NUMBER: _ClassVar[int]
-    RELEASEDATEINISO6801_FIELD_NUMBER: _ClassVar[int]
-    PAGES_FIELD_NUMBER: _ClassVar[int]
-    chapterNumber: str
-    chapterName: str
-    releaseDateInISO6801: str
-    pages: _containers.RepeatedCompositeFieldContainer[MangaPage]
-    def __init__(self, chapterNumber: _Optional[str] = ..., chapterName: _Optional[str] = ..., releaseDateInISO6801: _Optional[str] = ..., pages: _Optional[_Iterable[_Union[MangaPage, _Mapping]]] = ...) -> None: ...
-
-class MangaPage(_message.Message):
-    __slots__ = ("page", "url")
-    PAGE_FIELD_NUMBER: _ClassVar[int]
-    URL_FIELD_NUMBER: _ClassVar[int]
-    page: int
-    url: str
-    def __init__(self, page: _Optional[int] = ..., url: _Optional[str] = ...) -> None: ...
+    def __init__(self, id: _Optional[int] = ..., extensionName: _Optional[str] = ..., manifest_version: _Optional[int] = ..., version: _Optional[str] = ..., media_type: _Optional[str] = ..., repoUrl: _Optional[str] = ..., scriptUrl: _Optional[str] = ..., metaDataUrl: _Optional[str] = ...) -> None: ...
