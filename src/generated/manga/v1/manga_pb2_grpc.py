@@ -3,7 +3,8 @@
 import grpc
 import warnings
 
-from generated.servers.manga.v1 import manga_pb2 as generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2
+from src.generated.types.manga.v1 import manga_types_pb2 as types_dot_manga_dot_v1_dot_manga__types__pb2
+from src.generated.types.plugin.v1 import plugin_types_pb2 as types_dot_plugin_dot_v1_dot_plugin__types__pb2
 
 GRPC_GENERATED_VERSION = '1.67.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +19,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in generated/servers/manga/v1/manga_pb2_grpc.py depends on'
+        + f' but the generated code in manga/v1/manga_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -34,41 +35,28 @@ class MangaServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.InstallPlugin = channel.unary_unary(
-                '/manga.v1.MangaService/InstallPlugin',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.FromString,
-                _registered_method=True)
-        self.DeletePlugin = channel.unary_unary(
-                '/manga.v1.MangaService/DeletePlugin',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.FromString,
+        self.LoadPlugin = channel.unary_unary(
+                '/manga.v1.MangaService/LoadPlugin',
+                request_serializer=types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginRequest.SerializeToString,
+                response_deserializer=types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginResponse.FromString,
                 _registered_method=True)
         self.SearchPlugin = channel.unary_unary(
                 '/manga.v1.MangaService/SearchPlugin',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginResponse.FromString,
+                request_serializer=types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginRequest.SerializeToString,
+                response_deserializer=types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginResponse.FromString,
                 _registered_method=True)
         self.RefreshManga = channel.unary_unary(
                 '/manga.v1.MangaService/RefreshManga',
-                request_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.SerializeToString,
-                response_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.FromString,
+                request_serializer=types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaRequest.SerializeToString,
+                response_deserializer=types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaResponse.FromString,
                 _registered_method=True)
 
 
 class MangaServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def InstallPlugin(self, request, context):
-        """install a new plugin
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DeletePlugin(self, request, context):
-        """delete plugin
-        """
+    def LoadPlugin(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -90,25 +78,20 @@ class MangaServiceServicer(object):
 
 def add_MangaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'InstallPlugin': grpc.unary_unary_rpc_method_handler(
-                    servicer.InstallPlugin,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.SerializeToString,
-            ),
-            'DeletePlugin': grpc.unary_unary_rpc_method_handler(
-                    servicer.DeletePlugin,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.SerializeToString,
+            'LoadPlugin': grpc.unary_unary_rpc_method_handler(
+                    servicer.LoadPlugin,
+                    request_deserializer=types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginRequest.FromString,
+                    response_serializer=types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginResponse.SerializeToString,
             ),
             'SearchPlugin': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchPlugin,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginResponse.SerializeToString,
+                    request_deserializer=types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginRequest.FromString,
+                    response_serializer=types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginResponse.SerializeToString,
             ),
             'RefreshManga': grpc.unary_unary_rpc_method_handler(
                     servicer.RefreshManga,
-                    request_deserializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.FromString,
-                    response_serializer=generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.SerializeToString,
+                    request_deserializer=types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaRequest.FromString,
+                    response_serializer=types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -122,7 +105,7 @@ class MangaService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def InstallPlugin(request,
+    def LoadPlugin(request,
             target,
             options=(),
             channel_credentials=None,
@@ -135,36 +118,9 @@ class MangaService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/manga.v1.MangaService/InstallPlugin',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.NewPluginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def DeletePlugin(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/manga.v1.MangaService/DeletePlugin',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.DeletePluginResponse.FromString,
+            '/manga.v1.MangaService/LoadPlugin',
+            types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginRequest.SerializeToString,
+            types_dot_plugin_dot_v1_dot_plugin__types__pb2.LoadPluginResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -190,8 +146,8 @@ class MangaService(object):
             request,
             target,
             '/manga.v1.MangaService/SearchPlugin',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.SearchPluginResponse.FromString,
+            types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginRequest.SerializeToString,
+            types_dot_manga_dot_v1_dot_manga__types__pb2.SearchPluginResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -217,8 +173,8 @@ class MangaService(object):
             request,
             target,
             '/manga.v1.MangaService/RefreshManga',
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaRequest.SerializeToString,
-            generated_dot_servers_dot_manga_dot_v1_dot_manga__pb2.RefreshMangaResponse.FromString,
+            types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaRequest.SerializeToString,
+            types_dot_manga_dot_v1_dot_manga__types__pb2.RefreshMangaResponse.FromString,
             options,
             channel_credentials,
             insecure,

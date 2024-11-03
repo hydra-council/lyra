@@ -37,8 +37,6 @@ ENV IS_DOCKER=true
 # Copy application code
 COPY . .
 
-RUN piccolo migrations forwards all
-
 # Command to run the application
 CMD ["python", "src/app.py"]
 

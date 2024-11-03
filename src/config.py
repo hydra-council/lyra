@@ -98,13 +98,7 @@ else:
     base_appdata = '/data/lyra'
     print("App is running in docker")
 
-database_path = f'{base_appdata}/lyra.db'
-repo_manifests = f'{base_appdata}/repo_manifests'
-extension_data = f'{os.getcwd()}/extension_data'
 logs = f'{base_appdata}/logs'
-
-os.makedirs(repo_manifests, exist_ok=True)
-os.makedirs(extension_data, exist_ok=True)
 os.makedirs(logs, exist_ok=True)
 
 logger = setup_logger(logs)

@@ -5,22 +5,6 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class NewPluginRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
-class NewPluginResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
-class DeletePluginRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
-class DeletePluginResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
-
 class SearchPluginRequest(_message.Message):
     __slots__ = ("searchQuery", "pluginID")
     SEARCHQUERY_FIELD_NUMBER: _ClassVar[int]

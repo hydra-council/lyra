@@ -1,32 +1,24 @@
+import os
 from concurrent import futures
 import grpc
 
 from script_loader import ScriptLoader
-import src.generated.servers.manga.v1.manga_pb2_grpc as mangav1
-import src.generated.servers.manga.v1.manga_pb2 as mangav1types
+import src.generated.manga.v1.manga_pb2_grpc as mangav1
+
 from src.config import addr
-from src.database.tables import init_database
+from src.grpc_service import MangaServicer
+
+is_docker = os.environ.get("IS_DOCKER")
+plugin_dir = os.environ.get("hydra_plugin_dir")
+if is_docker is not None and plugin_dir is None:
+    raise Exception("Plugin dir not found")
+
+print("Plugin dir is set as ", plugin_dir, "lyra will load modules using the same base path")
 
 script_manager = ScriptLoader()
 
-init_database()
 
-class MangaServicer(mangav1.MangaServiceServicer):
-    def InstallPlugin(self, request, context):
-        return super().InstallPlugin(request, context)
-
-    def DeletePlugin(self, request, context):
-        f = mangav1types.DeletePluginRequest()
-        return super().DeletePlugin(request, context)
-
-    def SearchPlugin(self, request, context):
-        print(request.pluginID)
-        print(request.searchQuery)
-
-        f = mangav1types.SearchPluginResponse()
-        f.pong = "asd"
-        return f
-
+# script_manager.load_script('D:\\Dev\\Go\\constellations\\hydra\\plugin\\d59c453a-98ea-11ef-88b1-089df4abb4f0\\manganato.py', 'd59c453a-98ea-11ef-88b1-089df4abb4f0.manganato')
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
